@@ -1,6 +1,6 @@
-- name: Update and upgrade apt packages
+- name: Update, upgrade, and autoremove apt packages
   hosts: all
-  become: true  # เพิ่ม become ให้ทุก task ใช้ sudo
+  become: true  # ใช้ sudo สำหรับทุก task
 
   tasks:
     - name: Update packages with apt
@@ -11,4 +11,9 @@
     - name: Upgrade packages with apt
       ansible.builtin.apt:
         upgrade: dist
+      when: ansible_pkg_mgr == "apt"
+
+    - name: Autoremove unnecessary packages
+      ansible.builtin.apt:
+        autoremove: true
       when: ansible_pkg_mgr == "apt"
