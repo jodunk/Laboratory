@@ -1,41 +1,23 @@
+---
 - name: Manage apt packages (update, upgrade, autoremove)
   hosts: all
   become: true  # ใช้ sudo สำหรับทุก task
 
   tasks:
-    - name: Display message before updating package cache
-      ansible.builtin.debug:
-        msg: "🔄 Updating package cache..."
-    
     - name: Update package cache
       ansible.builtin.apt:
         update_cache: true
       when: ansible_pkg_mgr == "apt"
-
-    - name: Display message before upgrading packages
-      ansible.builtin.debug:
-        msg: "📦 Upgrading all packages..."
-    
+      
     - name: Upgrade all packages
       ansible.builtin.apt:
         upgrade: dist
       when: ansible_pkg_mgr == "apt"
 
-    - name: Display message before autoremove
-      ansible.builtin.debug:
-        msg: "🗑️ Removing unnecessary packages..."
-    
     - name: Remove unnecessary packages
       ansible.builtin.apt:
         autoremove: true
       when: ansible_pkg_mgr == "apt"
-
-    - name: Send Discord message when reboot is required
-      uri:
-        method: POST
-        body_format: json
-        body: '{"content": "Reboot required on {{ inventory_hostname }}"}'
-        headers:
 
     - name: Send Discord message when reboot is required
       uri:
@@ -46,4 +28,4 @@
         headers:
           Content-Type: "application/json"
         status_code: 204
-      when: reboot_required.stat.exists
+      when: reboot_required.stat.exists is defined and reboot_required.stat.exists
