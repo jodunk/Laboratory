@@ -1,6 +1,7 @@
 ---
 - name: Manage apt packages (update, upgrade, autoremove)
-  hosts: "{{ all | d([]) }}"
+  hosts: "{{ my_hosts | d([]) }}"
+
   become: true  # ใช้ sudo สำหรับทุก task
 
   tasks:
