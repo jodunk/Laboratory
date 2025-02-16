@@ -37,13 +37,13 @@
         body: '{"content": "Reboot required on {{ inventory_hostname }}"}'
         headers:
 
-- name: Send Discord message when reboot is required
-  uri:
-    url: "https://discord.com/api/webhooks/1340527540636356708/kJihK7URkhY6CqReT06wZwq_7o515sS9KPZ3DleRIGMMyZCKdN2KC-3VQUGgwwzdzZBy"
-    method: POST
-    body_format: json
-    body: '{"content": "Reboot required on {{ inventory_hostname }}"}'
-    headers:
-      Content-Type: "application/json"
-    status_code: 204
-  when: reboot_required.stat.exists
+    - name: Send Discord message when reboot is required
+      uri:
+        url: "https://discord.com/api/webhooks/1340527540636356708/kJihK7URkhY6CqReT06wZwq_7o515sS9KPZ3DleRIGMMyZCKdN2KC-3VQUGgwwzdzZBy"
+        method: POST
+        body_format: json
+        body: '{"content": "Reboot required on {{ inventory_hostname }}"}'
+        headers:
+          Content-Type: "application/json"
+        status_code: 204
+      when: reboot_required.stat.exists
