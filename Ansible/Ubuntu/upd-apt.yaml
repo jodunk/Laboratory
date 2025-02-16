@@ -20,7 +20,7 @@
       when: ansible_pkg_mgr == "apt"
 
     - name: Send Discord message when reboot is required
-      uri:
+      ansible.builtin.uri:
         url: "https://discord.com/api/webhooks/1340527540636356708/kJihK7URkhY6CqReT06wZwq_7o515sS9KPZ3DleRIGMMyZCKdN2KC-3VQUGgwwzdzZBy"
         method: POST
         body_format: json
@@ -28,4 +28,4 @@
         headers:
           Content-Type: "application/json"
         status_code: 204
-      when: reboot_required.stat.exists is defined and reboot_required.stat.exists
+      when: reboot_required.stat.exists is defined and reboot_required.stat.exists == true

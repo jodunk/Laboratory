@@ -7,5 +7,5 @@
       changed_when: false
 
     - name: Show disk space result
-      debug:
+      ansible.builtin.debug:
         msg: "{{ disk_usage.stdout_lines }}"
