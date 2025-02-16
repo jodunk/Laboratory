@@ -1,14 +1,14 @@
----
 - name: Update and upgrade apt packages
   hosts: all
+  become: true  # เพิ่ม become ให้ทุก task ใช้ sudo
 
   tasks:
     - name: Update packages with apt
-      when: ansible_pkg_mgr == 'apt'
       ansible.builtin.apt:
         update_cache: true
+      when: ansible_pkg_mgr == "apt"
 
     - name: Upgrade packages with apt
-      when: ansible_pkg_mgr == 'apt'
       ansible.builtin.apt:
         upgrade: dist
+      when: ansible_pkg_mgr == "apt"
