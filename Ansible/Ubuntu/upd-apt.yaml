@@ -4,7 +4,7 @@
 
   tasks:
     - name: Display message before updating package cache
-      debug:
+      ansible.builtin.debug:
         msg: "🔄 Updating package cache..."
     
     - name: Update package cache
@@ -13,7 +13,7 @@
       when: ansible_pkg_mgr == "apt"
 
     - name: Display message before upgrading packages
-      debug:
+      ansible.builtin.debug:
         msg: "📦 Upgrading all packages..."
     
     - name: Upgrade all packages
@@ -22,7 +22,7 @@
       when: ansible_pkg_mgr == "apt"
 
     - name: Display message before autoremove
-      debug:
+      ansible.builtin.debug:
         msg: "🗑️ Removing unnecessary packages..."
     
     - name: Remove unnecessary packages
@@ -37,6 +37,3 @@
         body_format: json
         body: '{"content": "Reboot required on {{ inventory_hostname }}"}'
         headers:
-          Content-Type: application/json
-        status_code: 204
-      when: reboot_required.stat.exists
