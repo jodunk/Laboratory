@@ -6,7 +6,7 @@
     - name: Remove all stopped containers
       community.docker.docker_prune:
         containers: true
-        stopped: true
+
     - name: Remove all dangling images
       ansible.builtin.command: docker image prune -af
       changed_when: false
