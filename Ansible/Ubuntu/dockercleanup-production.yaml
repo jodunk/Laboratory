@@ -1,0 +1,17 @@
+- name: Cleanup Unused Docker Containers & Images
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Remove all stopped containers
+      community.docker.docker_container:
+        state: absent
+        auto_remove: yes
+
+    - name: Remove all dangling images
+      ansible.builtin.command: docker image prune -af
+      changed_when: false
+
+    - name: Remove all dangling volumes
+      ansible.builtin.command: docker volume prune -f
+      changed_when: false

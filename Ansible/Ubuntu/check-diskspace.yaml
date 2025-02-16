@@ -1,0 +1,11 @@
+- name: Check Disk Space
+  hosts: all
+  tasks:
+    - name: Get disk space usage
+      ansible.builtin.command: df -h /
+      register: disk_usage
+      changed_when: false
+
+    - name: Show disk space result
+      debug:
+        msg: "{{ disk_usage.stdout_lines }}"
