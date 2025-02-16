@@ -1,19 +1,10 @@
-- name: Update, upgrade, and autoremove apt packages
+- name: Manage apt packages (update, upgrade, autoremove)
   hosts: all
   become: true  # ใช้ sudo สำหรับทุก task
-
   tasks:
-    - name: Update packages with apt
+    - name: Update, upgrade, and autoremove apt packages
       ansible.builtin.apt:
         update_cache: true
-      when: ansible_pkg_mgr == "apt"
-
-    - name: Upgrade packages with apt
-      ansible.builtin.apt:
         upgrade: dist
-      when: ansible_pkg_mgr == "apt"
-
-    - name: Autoremove unnecessary packages
-      ansible.builtin.apt:
         autoremove: true
       when: ansible_pkg_mgr == "apt"
